@@ -3,4 +3,30 @@
 <container xmlns="http://symfony.com/schema/dic/services"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="cekurte_webscraping.entity.article.class">Cekurte\WebScrapingBundle\Entity\Article</parameter>
+        <parameter key="cekurte_webscraping.entity.author.class">Cekurte\WebScrapingBundle\Entity\Author</parameter>
+        <parameter key="cekurte_webscraping.entity.feed.class">Cekurte\WebScrapingBundle\Entity\Feed</parameter>
+        <parameter key="cekurte_webscraping.entity.outlet.class">Cekurte\WebScrapingBundle\Entity\Outlet</parameter>
+    </parameters>
+
+    <services>
+        <service id="cekurte_webscraping.resource.article" class="%cekurte_component.service.resource_manager.doctrine.class%">
+            <argument type="service" id="service_container" />
+            <argument>%cekurte_webscraping.entity.article.class%</argument>
+        </service>
+        <service id="cekurte_webscraping.resource.author" class="%cekurte_component.service.resource_manager.doctrine.class%">
+            <argument type="service" id="service_container" />
+            <argument>%cekurte_webscraping.entity.author.class%</argument>
+        </service>
+        <service id="cekurte_webscraping.resource.feed" class="%cekurte_component.service.resource_manager.doctrine.class%">
+            <argument type="service" id="service_container" />
+            <argument>%cekurte_webscraping.entity.feed.class%</argument>
+        </service>
+        <service id="cekurte_webscraping.resource.outlet" class="%cekurte_component.service.resource_manager.doctrine.class%">
+            <argument type="service" id="service_container" />
+            <argument>%cekurte_webscraping.entity.outlet.class%</argument>
+        </service>
+    </services>
 </container>
