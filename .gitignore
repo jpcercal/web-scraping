@@ -1,3 +1,15 @@
+._*
+.~lock.*
+.buildpath
+.DS_Store
+.idea
+nbproject
+.project
+.settings
+composer.lock
+composer.phar
+_reports
+.lock
 /app/bootstrap.php.cache
 /app/cache/*
 !app/cache/.gitkeep
@@ -6,7 +18,6 @@
 !app/logs/.gitkeep
 /app/phpunit.xml
 /bin/
-/composer.phar
 /vendor/
 /web/bundles/
 /build/
