@@ -69,30 +69,30 @@ class GenericDataMapper extends AbstractDataMapper
     {
         $article = $this->getArticle();
 
+        $filters = $this
+            ->getArticleResourceManager()
+            ->getEntityManager()
+            ->getFilters()
+        ;
+
+        $filters->disable('softdeleteable');
+
         try {
-
-            $filters = $this
-                ->getArticleResourceManager()
-                ->getEntityManager()
-                ->getFilters()
-            ;
-
-            $filters->disable('softdeleteable');
 
             $resource = $this->getArticleResourceManager()->findResource(array(
                 'url' => $article->getUrl(),
             ));
 
-            $filters->enable('softdeleteable');
-
-            if (!is_null($resource->getDeletedAt())) {
-                return $resource->getId();
-            }
-
         } catch (ResourceNotFoundException $e) {
             $resource = new Article();
 
             $resource->setViews(0);
+        }
+
+        $filters->enable('softdeleteable');
+
+        if (!is_null($resource->getDeletedAt())) {
+            return $resource->getId();
         }
 
         $resource
