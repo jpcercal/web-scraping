@@ -1,0 +1,5 @@
+cekurte_web_scraping:
+    resource: "@CekurteWebScrapingBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
