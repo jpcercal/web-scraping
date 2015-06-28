@@ -19,6 +19,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Symfony\Component\DomCrawler\Crawler;
+use Zend\Feed\Reader\Entry\EntryInterface;
 
 class WebScrapingArticle
 {
@@ -105,6 +106,22 @@ class WebScrapingArticle
     }
 
     /**
+     * @param  EntryInterface $entry
+     * 
+     * @return bool
+     */
+    protected function currentEntryIgnored(EntryInterface $entry)
+    {
+        $outletUrl = $this->getOutlet()->getUrl();
+
+        if (substr($outletUrl, 0, -1) !== '/') {
+            $outletUrl .= '/';
+        }
+
+        return strpos($entry->getLink(), $outletUrl . 'gallery/') !== false;
+    }
+
+    /**
      * @return array
      */
     public function getArticles()
@@ -118,6 +135,10 @@ class WebScrapingArticle
             $articleSelector = $this->getArticleSelector();
 
             foreach ($entries as $entry) {
+                if ($this->currentEntryIgnored($entry)) {
+                    continue;
+                }
+
                 $request = new Request('GET', $entry->getLink());
 
                 $response = $client->send($request);
